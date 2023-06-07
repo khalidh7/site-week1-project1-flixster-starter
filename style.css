@@ -1,1 +1,14 @@
 
+#search{
+    display: flex;
+}
+
+#search-input{
+    display: flex;
+    flex-direction: column;
+}
+
+#search-submit{
+    display: flex;
+    flex-direction: column-reverse;
+}
