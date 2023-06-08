@@ -1,11 +1,12 @@
-const apiKey = "395e63d0f3a8e09fdff62e93945c92d0";
 let currentpage = 1
 const movieContainer = document.querySelector('#movie-container');
 const loadbtn = document.querySelector('#load');
 const searchbar= document.querySelector('#movie-search');
 const currentmovies = 'now_playing?language=en-US&page='
 const searchmovies = 'search/movie?'
+const subtitle = document.querySelector('#subtitle')
 
+//api request for when you want to load pages of api
 function getMoviePage(pageNumber){
     const options = {
         method: 'GET',
@@ -24,13 +25,13 @@ function getMoviePage(pageNumber){
     })
     .then(data => {
         for(let i = 0; i<data.results.length; i++){
-            console.log(data)
             generateCards(data.results[i])
         }
     })
     
 }
 
+//api request for when you search
 function getMovieSearch(keyword){
     const options = {
         method: 'GET',
@@ -55,7 +56,7 @@ function getMovieSearch(keyword){
     
 }
 
-
+//generate html for a single movie card
 function generateCards(movieObject){
     let star = document.createElement('span');
     star.classList.add('star')
@@ -73,6 +74,7 @@ function generateCards(movieObject){
     averageContainer.appendChild(rating);
 
     let image = document.createElement('img');
+    image.classList.add('poster')
     image.src = "https://image.tmdb.org/t/p/original".concat(movieObject.poster_path)
 
     let name = document.createElement('span');
@@ -91,35 +93,30 @@ function generateCards(movieObject){
     movieContainer.appendChild(movie)
 }
 
+
+
+//when load button is called, go to next page of api and generate those cards
 loadbtn.addEventListener("click", function(){
     currentpage+=1;
     getMoviePage(currentpage)
 
 });
 
+//when keys are pressed in the searchbar, search the keyword using api, if no letters are in the search bar value then display first page of api resutls
 searchbar.addEventListener('keyup', function(){
     movieContainer.innerHTML = ''
     if (searchbar.value.length == 0){
-        console.log("hello")
+        subtitle.innerText = "Search Results"
         currentpage=1
         getMoviePage(currentpage)
     }
     else{
+        subtitle.innerText = "Now Playing:"
         getMovieSearch(searchbar.value.toLowerCase())
     }
 })
-
-
-/*searchbar.addEventListener('emptied', function() {
-    console.log("helo")
-    currentpage=1
-    getMoviesPage(currentpage)
-})*/
 
 //when window is loaded call this function
 window.onload = function(){
     getMoviePage(currentpage)
 }
-
-
-// if lenngth of search form content is 0 then call the now playing api
