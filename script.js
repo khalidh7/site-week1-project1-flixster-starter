@@ -1,106 +1,119 @@
-let fakeMoviesApi = {
-    "dates": {
-        "maximum": "2023-06-05",
-        "minimum": "2023-04-18"
-    },
-    "page": 1,
-    "results": [
-        {
-            "adult": false,
-            "backdrop_path": "/9n2tJBplPbgR2ca05hS5CKXwP2c.jpg",
-            "genre_ids": [
-                16,
-                10751,
-                12,
-                14,
-                35
-            ],
-            "id": 502356,
-            "original_language": "en",
-            "original_title": "The Super Mario Bros. Movie",
-            "overview": "While working underground to fix a water main, Brooklyn plumbers—and brothers—Mario and Luigi are transported down a mysterious pipe and wander into a magical new world. But when the brothers are separated, Mario embarks on an epic quest to find Luigi.",
-            "popularity": 3392.2,
-            "poster_path": "/qNBAXBIQlnOThrVvA6mA2B5ggV6.jpg",
-            "release_date": "2023-04-05",
-            "title": "The Super Mario Bros. Movie",
-            "video": false,
-            "vote_average": 7.8,
-            "vote_count": 4327
-        },
-        {
-            "adult": false,
-            "backdrop_path": "/2I5eBh98Q4aPq8WdQrHdTC8ARhY.jpg",
-            "genre_ids": [
-                28,
-                12,
-                16,
-                878
-            ],
-            "id": 569094,
-            "original_language": "en",
-            "original_title": "Spider-Man: Across the Spider-Verse",
-            "overview": "After reuniting with Gwen Stacy, Brooklyn’s full-time, friendly neighborhood Spider-Man is catapulted across the Multiverse, where he encounters the Spider Society, a team of Spider-People charged with protecting the Multiverse’s very existence. But when the heroes clash on how to handle a new threat, Miles finds himself pitted against the other Spiders and must set out on his own to save those he loves most.",
-            "popularity": 2921.844,
-            "poster_path": "/8Vt6mWEReuy4Of61Lnj5Xj704m8.jpg",
-            "release_date": "2023-05-31",
-            "title": "Spider-Man: Across the Spider-Verse",
-            "video": false,
-            "vote_average": 8.8,
-            "vote_count": 739
-        },
-        {
-            "adult": false,
-            "backdrop_path": "/4t0oBFrJyweYPt0hocW6RUa0b6H.jpg",
-            "genre_ids": [
-                28,
-                80,
-                53
-            ],
-            "id": 385687,
-            "original_language": "en",
-            "original_title": "Fast X",
-            "overview": "Over many missions and against impossible odds, Dom Toretto and his family have outsmarted, out-nerved and outdriven every foe in their path. Now, they confront the most lethal opponent they've ever faced: A terrifying threat emerging from the shadows of the past who's fueled by blood revenge, and who is determined to shatter this family and destroy everything—and everyone—that Dom loves, forever.",
-            "popularity": 2334.66,
-            "poster_path": "/1E5baAaEse26fej7uHcjOgEE2t2.jpg",
-            "release_date": "2023-05-17",
-            "title": "Fast X",
-            "video": false,
-            "vote_average": 7.1,
-            "vote_count": 854
-        },
-    ],
-    "total_pages": 98,
-    "total_results": 1951
+const apiKey = "395e63d0f3a8e09fdff62e93945c92d0";
+let currentpage = 1
+const movieContainer = document.querySelector('#movie-container');
+const loadbtn = document.querySelector('#load');
+const searchbar= document.querySelector('#movie-search');
+const currentmovies = 'now_playing?language=en-US&page='
+const searchmovies = 'search/movie?'
+
+function getMoviePage(pageNumber){
+    const options = {
+        method: 'GET',
+        headers: {
+          accept: 'application/json',
+          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzOTVlNjNkMGYzYThlMDlmZGZmNjJlOTM5NDVjOTJkMCIsInN1YiI6IjY0ODBjNTY0ZDJiMjA5MDBjYTFkMDEyOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.bXi08n9awWMo-8N6GC60ZxocgP5xT7bhBvcNX3KbjTI'
+        }
+      };
+      
+    
+
+    fetch(`https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=${pageNumber}`, options)
+    .then(response => {return response.json()})
+    .then(response => {
+        return response
+    })
+    .then(data => {
+        console.log(data)
+        for(let i = 0; i<data.results.length; i++){
+            generateCards(data.results[i])
+        }
+    })
+    
 }
 
-const movieelement = document.querySelector('#movies');
+function getMovieSearch(keyword){
+    const options = {
+        method: 'GET',
+        headers: {
+          accept: 'application/json',
+          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzOTVlNjNkMGYzYThlMDlmZGZmNjJlOTM5NDVjOTJkMCIsInN1YiI6IjY0ODBjNTY0ZDJiMjA5MDBjYTFkMDEyOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.bXi08n9awWMo-8N6GC60ZxocgP5xT7bhBvcNX3KbjTI'
+        }
+      };
+      
+    
 
-//loads the html for one page of results
-function displayResults(results) {
-    let moviesHTMLString = ""
-    for (let temp of results) {
-        moviesHTMLString += generatemovieHTML(temp.original_title, temp.vote_average, temp.poster_path)
-    }
-
-    movieelement.innerHTML = moviesHTMLString
+    fetch(`https://api.themoviedb.org/3/movie/search/movie?${keyword}`, options)
+    .then(response => {return response.json()})
+    .then(response => {
+        return response
+    })
+    .then(data => {
+        console.log(data)
+        for(let i = 0; i<data.results.length; i++){
+            generateCards(data.results[i])
+        }
+    })
+    
 }
 
-//generates html for one movie card
-function generatemovieHTML(name, rating, url) {
-    return `
-        <article class="movie">
-            <section id='movie-img'>    
-                <img src="${url}"/> 
-            </section>
-            <section id='movie-txt'>
-                <h4>${name}</h4>
-                <h4>⭐ ${rating}</h4>
-            </section>
-        </article>
-    `
+
+function generateCards(movieObject){
+    let star = document.createElement('span');
+    star.classList.add('star')
+    let starContent = document.createTextNode('⭐')
+    star.appendChild(starContent)
+
+    let rating = document.createElement('span');
+    let ratingContent = document.createTextNode(movieObject.vote_average);
+    rating.classList.add('rating')
+    rating.appendChild(ratingContent)
+
+    let averageContainer = document.createElement('article');
+    averageContainer.classList.add('average')
+    averageContainer.appendChild(star);
+    averageContainer.appendChild(rating);
+
+    let image = document.createElement('img');
+    image.src = "https://image.tmdb.org/t/p/original".concat(movieObject.poster_path)
+
+    let name = document.createElement('span');
+    name.classList.add('name');
+    name.innerText = movieObject.original_title;
+
+    let textContainer = document.createElement('section');
+    textContainer.classList.add('movie-text')
+    textContainer.appendChild(averageContainer)
+    textContainer.appendChild(name)
+
+    let movie = document.createElement('article')
+    movie.classList.add('movie')
+    movie.appendChild(image)
+    movie.appendChild(textContainer)
+    movieContainer.appendChild(movie)
 }
+
+loadbtn.addEventListener("click", function(){
+    currentpage+=1;
+    getMoviePage(currentpage)
+
+});
+
+function search(keyword){
+    getMovieSearch(keyword)
+}
+
+searchbar.addEventListener('keyup', function(){
+    console.log(searchbar.value)
+    search(searchbar.value.toLowerCase())
+})
+
+
+/*searchbar.addEventListener('', function(){
+    currentpage=1
+    getMovies(currentmovies, currentpage, null)
+})*/
 
 //when window is loaded call this function
 window.onload = function(){
-    displayResults(fakeMoviesApi[results]);
+    getMoviePage(currentpage)
 }

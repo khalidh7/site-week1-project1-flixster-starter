@@ -1,0 +1,30 @@
+body{
+    background-color: rgb(27, 27, 30);
+}
+
+h2{
+    color: antiquewhite;
+}
+header{
+    display: flex;
+    justify-content: center;
+    color: rgb(186, 47, 47);
+}
+
+#movie-container{
+    display: flex;
+    justify-content: space-evenly;
+    color: antiquewhite;
+    flex-wrap: wrap;
+}
+
+.movie{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 18%;
+    margin-bottom: 5%;
+    margin-right: 2%;
+    margin-left: 2%;
+}
+

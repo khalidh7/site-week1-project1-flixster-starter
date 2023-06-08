@@ -4,18 +4,22 @@
     <head>
         <title>Khalid's Flixster</title>
         <link rel="stylesheet" type="text/css" href="style.css"/>
-        <script src="script.js"></script>
-
     </head>
     <body>
         <header>
             <h1 class="site-header">🍿Flixster</h1>
         </header>
         <main>
-            <section id="movies">
-
+            <form id="search">
+                <label for="movie-search">Search Movies:</label>
+                <input type="text" id="movie-search" name="movie-search">
+            </form>
+            <h2>Now Playing:</h2>
+            <section id="movie-container">
+                
             </section>
-            <button id="load-btn">Load More Movies</button>
+            <button id="load">Load More Movies</button>
         </main>
     </body>
+    <script src="script.js"></script>
 </html>
