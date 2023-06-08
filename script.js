@@ -42,7 +42,7 @@ function getMovieSearch(keyword){
       
     
 
-    fetch(`https://api.themoviedb.org/3/movie/search/movie?${keyword}`, options)
+    fetch(`https://api.themoviedb.org/3/search/movie?query=${keyword}&include_adult=false&language=en-US&page=1`, options)
     .then(response => {return response.json()})
     .then(response => {
         return response
@@ -98,20 +98,17 @@ loadbtn.addEventListener("click", function(){
 
 });
 
-function search(keyword){
-    getMovieSearch(keyword)
-}
-
 searchbar.addEventListener('keyup', function(){
-    console.log(searchbar.value)
-    search(searchbar.value.toLowerCase())
+    movieContainer.innerHTML = ''
+    getMovieSearch(searchbar.value.toLowerCase())
 })
 
 
-/*searchbar.addEventListener('', function(){
+searchbar.addEventListener('emptied', function() {
+    console.log("helo")
     currentpage=1
-    getMovies(currentmovies, currentpage, null)
-})*/
+    getMoviesPage(currentmovies, currentpage, null)
+})
 
 //when window is loaded call this function
 window.onload = function(){
