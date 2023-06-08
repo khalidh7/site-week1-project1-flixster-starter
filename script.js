@@ -23,8 +23,8 @@ function getMoviePage(pageNumber){
         return response
     })
     .then(data => {
-        console.log(data)
         for(let i = 0; i<data.results.length; i++){
+            console.log(data)
             generateCards(data.results[i])
         }
     })
@@ -48,7 +48,6 @@ function getMovieSearch(keyword){
         return response
     })
     .then(data => {
-        console.log(data)
         for(let i = 0; i<data.results.length; i++){
             generateCards(data.results[i])
         }
@@ -100,17 +99,27 @@ loadbtn.addEventListener("click", function(){
 
 searchbar.addEventListener('keyup', function(){
     movieContainer.innerHTML = ''
-    getMovieSearch(searchbar.value.toLowerCase())
+    if (searchbar.value.length == 0){
+        console.log("hello")
+        currentpage=1
+        getMoviePage(currentpage)
+    }
+    else{
+        getMovieSearch(searchbar.value.toLowerCase())
+    }
 })
 
 
-searchbar.addEventListener('emptied', function() {
+/*searchbar.addEventListener('emptied', function() {
     console.log("helo")
     currentpage=1
-    getMoviesPage(currentmovies, currentpage, null)
-})
+    getMoviesPage(currentpage)
+})*/
 
 //when window is loaded call this function
 window.onload = function(){
     getMoviePage(currentpage)
 }
+
+
+// if lenngth of search form content is 0 then call the now playing api
