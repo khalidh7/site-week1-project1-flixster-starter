@@ -3,6 +3,10 @@ body{
     background-color: var(--bg);
 }
 
+button:hover{
+    cursor: pointer;
+}
+
 :root{
     --bg: rgb(87, 39, 17);
     --text1: rgb(213, 185, 148);
