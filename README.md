@@ -42,7 +42,10 @@ Deployed Application (optional): [Flixster Deployed Site](https://khalidh7.githu
 
 ### Walkthrough Video
 
-<div style="position: relative; padding-bottom: 49.375%; height: 0;"><iframe src="https://www.loom.com/embed/da6fdf8700b043ed847b48e754a81a10" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
+<a href="https://www.loom.com/share/da6fdf8700b043ed847b48e754a81a10">
+   <p>Project video title</p>
+   <img style="max-width:300px;" src="https://cdn.loom.com/sessions/thumbnails/da6fdf8700b043ed847b48e754a81a10-with-play.gif">
+</a>
 
 ### Reflection
 
