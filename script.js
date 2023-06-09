@@ -1,11 +1,11 @@
 let currentpage = 1
-const movieContainer = document.querySelector('#movie-container');
-const loadbtn = document.querySelector('#load');
-const searchbar= document.querySelector('#movie-search');
+const movieContainer = document.querySelector('#movie-grid');
+const loadbtn = document.querySelector('#load-more-movies-btn');
+const searchbar= document.querySelector('#search-input');
 const currentmovies = 'now_playing?language=en-US&page='
 const searchmovies = 'search/movie?'
 const subtitle = document.querySelector('#subtitle')
-const clear = document.querySelector('#clear')
+const clear = document.querySelector('#close-search-btn')
 const darkbtn = document.querySelector('#mode')
 const body = document.querySelector('body')
 //let posters= [];
@@ -78,7 +78,7 @@ function generateCards(movieObject){
 
     let rating = document.createElement('span');
     let ratingContent = document.createTextNode(movieObject.vote_average);
-    rating.classList.add('rating')
+    rating.classList.add('movie-votes')
     rating.appendChild(ratingContent)
 
     let averageContainer = document.createElement('article');
@@ -87,13 +87,13 @@ function generateCards(movieObject){
     averageContainer.appendChild(rating);
 
     let image = document.createElement('img');
+    image.classList.add('movie-poster')
     image.setAttribute('id', movieObject.id)
     image.setAttribute('alt', `Poster for ${movieObject.original_title}`)
-    image.classList.add('poster')
     image.src = "https://image.tmdb.org/t/p/original".concat(movieObject.poster_path)
 
     let name = document.createElement('span');
-    name.classList.add('name');
+    name.classList.add('movie-title');
     name.innerText = movieObject.original_title;
 
     let textContainer = document.createElement('section');
@@ -102,7 +102,7 @@ function generateCards(movieObject){
     textContainer.appendChild(name)
 
     let movie = document.createElement('article')
-    movie.classList.add('movie')
+    movie.classList.add('movie-card')
     movie.appendChild(image)
     movie.appendChild(textContainer)
     movie.setAttribute('id', movieObject.id)

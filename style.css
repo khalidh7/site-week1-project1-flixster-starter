@@ -45,13 +45,13 @@ header{
     color: var(--text2);
 }
 
-#movie-container{
+#movie-grid{
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
 }
 
-.movie{
+.movie-card{
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -62,7 +62,7 @@ header{
  
 }
 
-.poster{
+.movie-poster{
     padding: 2px;
     background-color: var(--text3);
 }
@@ -77,7 +77,7 @@ header{
     align-items: center;
 }
 
-#load{
+#load-more-movies-btn{
     color: var(--btnc);
     background-color: var(--text4);
     border: none;
@@ -95,7 +95,7 @@ header{
     padding-bottom: 20px;
 }
 
-#clear{
+#close-search-btn{
     color: var(--btnc);
     background-color: var(--text4);
     border: none;
