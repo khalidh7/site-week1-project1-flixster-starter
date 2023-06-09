@@ -1,18 +1,35 @@
 
 body{
-    background-color: rgb(27, 27, 30);
+    background-color: var(--bg);
+}
+
+:root{
+    --bg: rgb(87, 39, 17);
+    --text1: rgb(213, 185, 148);
+    --text2: rgb(240, 203, 122);
+    --text3: antiquewhite;
+    --text4: rgb(8, 19, 95);
+    --btnc: antiquewhite;
+}
+:root .light-mode{
+    --bg: antiquewhite;
+    --text1: rgb(87, 39, 17);
+    --text2: rgb(87, 39, 17);
+    --text3: rgb(87, 39, 17);
+    --text4: rgb(8, 19, 95);
+    --btnc: antiquewhite;
 }
 h2{
-    color: antiquewhite;
+    color: var(--text1);
     display: flex;
     justify-content: center;
 }
 span{
-    color: antiquewhite;
+    color: var(--text1);
     font-size: 24px;
 }
 form{
-    color: antiquewhite;
+    color: var(--text1);
     display: flex;
     justify-content: center;
 }
@@ -21,7 +38,7 @@ header{
     font-size: 45px;
     display: flex;
     justify-content: center;
-    color: rgb(186, 47, 47);
+    color: var(--text2);
 }
 
 #movie-container{
@@ -43,7 +60,7 @@ header{
 
 .poster{
     padding: 2px;
-    background-color: antiquewhite;
+    background-color: var(--text3);
 }
 
 #button{
@@ -51,9 +68,44 @@ header{
     justify-content: center;
 }
 
+#search{
+    display: flex;
+    align-items: center;
+}
+
 #load{
-    color: antiquewhite;
-    background-color: brown;
+    color: var(--btnc);
+    background-color: var(--text4);
+    border: none;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 10px;
+}
+
+#dark{
+    display: flex;
+    justify-content: center;
+    padding-bottom: 20px;
+}
+
+#clear{
+    color: var(--btnc);
+    background-color: var(--text4);
+    border: none;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 10px;
+}
+
+#mode{
+    color: var(--btnc);
+    background-color: var(--text4);
     border: none;
     padding: 15px 32px;
     text-align: center;
@@ -64,9 +116,31 @@ header{
 }
 
 input{
-    margin-left: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 10px;
+    size: 24px;
 }
 
 form{
     font-size: 24px;
 }
+
+/*.modal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.4rem;
+    width: 450px;
+    padding: 1.3rem;
+    min-height: 250px;
+    position: absolute;
+    top: 20%;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+  }
+
+.hidden{
+    display:none;
+}*/

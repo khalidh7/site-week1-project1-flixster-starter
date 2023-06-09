@@ -5,6 +5,12 @@ const searchbar= document.querySelector('#movie-search');
 const currentmovies = 'now_playing?language=en-US&page='
 const searchmovies = 'search/movie?'
 const subtitle = document.querySelector('#subtitle')
+const clear = document.querySelector('#clear')
+const darkbtn = document.querySelector('#mode')
+const body = document.querySelector('body')
+//let posters= [];
+//let currentmovie;
+//let modal;
 
 //api request for when you want to load pages of api
 function getMoviePage(pageNumber){
@@ -27,6 +33,10 @@ function getMoviePage(pageNumber){
         for(let i = 0; i<data.results.length; i++){
             generateCards(data.results[i])
         }
+        /*posters = document.querySelectorAll('.poster')
+        posters.forEach(popupInfo)
+        console.log(data)
+        */
     })
     
 }
@@ -52,6 +62,9 @@ function getMovieSearch(keyword, pageNumber){
         for(let i = 0; i<data.results.length; i++){
             generateCards(data.results[i])
         }
+        /*posters = document.querySelectorAll('.poster')
+        posters.forEach(popupInfo)
+        */
     })
     
 }
@@ -74,6 +87,8 @@ function generateCards(movieObject){
     averageContainer.appendChild(rating);
 
     let image = document.createElement('img');
+    image.setAttribute('id', movieObject.id)
+    image.setAttribute('alt', `Poster for ${movieObject.original_title}`)
     image.classList.add('poster')
     image.src = "https://image.tmdb.org/t/p/original".concat(movieObject.poster_path)
 
@@ -90,10 +105,19 @@ function generateCards(movieObject){
     movie.classList.add('movie')
     movie.appendChild(image)
     movie.appendChild(textContainer)
+    movie.setAttribute('id', movieObject.id)
     movieContainer.appendChild(movie)
+
 }
 
-
+/*function popupInfo(poster){
+    poster.addEventListener('click', function(){
+        modal.classList.remove('hidden')
+        currentmovie = document.getElementById(`#${poster.id}`)
+        console.log(currentmovie)
+    })
+}
+*/
 
 //when load button is called, go to next page of api and generate those cards
 loadbtn.addEventListener("click", function(){
@@ -106,6 +130,19 @@ loadbtn.addEventListener("click", function(){
     }
 
 });
+
+//dark-mode
+darkbtn.addEventListener("click", function(){
+    body.classList.toggle('light-mode')
+})
+
+
+//when clear button is clicked, clear value of search bar and go to page 1
+clear.addEventListener("click", function(){
+    searchbar.value = ''
+    currentpage = 1
+    getMoviePage(currentpage)
+})
 
 //when keys are pressed in the searchbar, search the keyword using api, if no letters are in the search bar value then display first page of api resutls
 searchbar.addEventListener('keyup', function(){
@@ -124,5 +161,10 @@ searchbar.addEventListener('keyup', function(){
 
 //when window is loaded call this function
 window.onload = function(){
+    /*modal = document.createElement('section')
+    modal.classList.add("modal")
+    modal.classList.add("hidden")
+    body.appendChild(modal)*/
     getMoviePage(currentpage)
 }
+
