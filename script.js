@@ -32,7 +32,7 @@ function getMoviePage(pageNumber){
 }
 
 //api request for when you search
-function getMovieSearch(keyword){
+function getMovieSearch(keyword, pageNumber){
     const options = {
         method: 'GET',
         headers: {
@@ -43,7 +43,7 @@ function getMovieSearch(keyword){
       
     
 
-    fetch(`https://api.themoviedb.org/3/search/movie?query=${keyword}&include_adult=false&language=en-US&page=1`, options)
+    fetch(`https://api.themoviedb.org/3/search/movie?query=${keyword}&include_adult=false&language=en-US&page=${pageNumber}`, options)
     .then(response => {return response.json()})
     .then(response => {
         return response
@@ -98,7 +98,12 @@ function generateCards(movieObject){
 //when load button is called, go to next page of api and generate those cards
 loadbtn.addEventListener("click", function(){
     currentpage+=1;
-    getMoviePage(currentpage)
+    if (searchbar.value.length == 0){
+        getMoviePage(currentpage)
+    }
+    else{
+        getMovieSearch(searchbar.value.toLowerCase(), currentpage)
+    }
 
 });
 
@@ -111,8 +116,9 @@ searchbar.addEventListener('keyup', function(){
         getMoviePage(currentpage)
     }
     else{
+        currentpage=1
         subtitle.innerText = "Now Playing:"
-        getMovieSearch(searchbar.value.toLowerCase())
+        getMovieSearch(searchbar.value.toLowerCase(), currentpage)
     }
 })
 
